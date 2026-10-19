@@ -24,12 +24,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/build-workbench/webgpu-sorting.git"
+    "url": "git+https://github.com/holtwood-projects/webgpu-sorting.git"
   },
   "bugs": {
-    "url": "https://github.com/build-workbench/webgpu-sorting/issues"
+    "url": "https://github.com/holtwood-projects/webgpu-sorting/issues"
   },
-  "homepage": "https://build-workbench.github.io/webgpu-sorting/",
+  "homepage": "https://holtwood-projects.github.io/webgpu-sorting/",
   "engines": {
     "node": ">=20.0.0"
   },
