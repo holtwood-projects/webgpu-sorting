@@ -88,7 +88,9 @@ jobs:
   # 没有这个 job 时，kernel 回归无法被任何 CI 检查捕获。
   e2e:
     name: Browser E2E (WebGPU)
-    runs-on: ubuntu-latest
+    # Playwright 1.60 尚不支持 ubuntu-26.04，而 ubuntu-latest 已切到该版本。
+    # 固定到 24.04，避免 --with-deps 直接失败。
+    runs-on: ubuntu-24.04
     needs: lint
     if: github.repository == 'holtwood-projects/webgpu-sorting'
     steps:
