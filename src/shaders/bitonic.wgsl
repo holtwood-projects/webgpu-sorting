@@ -85,8 +85,11 @@ fn bitonic_sort_local(
       let partner = local_idx ^ pair_distance;
       
       if (partner > local_idx && partner < WORKGROUP_SIZE) {
-        // Determine sort direction
-        let block_idx = local_idx / block_size;
+        // Direction is based on the GLOBAL position, not the local one: adjacent
+        // 256-element workgroups must finish in opposite directions so the first
+        // global merge stage receives a bitonic sequence. Using local_idx here
+        // makes every workgroup ascending and breaks any N > WORKGROUP_SIZE.
+        let block_idx = (workgroup_offset + local_idx) / block_size;
         let ascending = (block_idx % 2u) == 0u;
         
         let a = shared_data[local_idx];

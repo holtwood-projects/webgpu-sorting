@@ -22,6 +22,8 @@ WebGPU Sorting —— 使用 WebGPU 计算着色器处理 Uint32Array 排序的 
 
 ### 修复
 
+- **Bitonic 排序在 N > 256 时结果错误**：本地 kernel 用 `local_idx / block_size` 计算方向，导致每个 workgroup 结束时都是升序，而全局合并阶段假定相邻 256 元素块方向相反。现改为按全局位置 `(workgroup_offset + local_idx) / block_size` 计算。该缺陷只影响超过 `WORKGROUP_SIZE` 的数组，原有小数组用例无法发现。
+- CI 新增 `Browser E2E (WebGPU)` job，在 SwiftShader 上运行 `test:browser`；此前 GPU kernel 的真实行为完全没有 CI 门禁。
 - 修复 Blelloch scan 的截断 bug。
 - 修复 scan 前缀和的绑定隐患与 `scan_block_sums` 上半部回写问题,并优化 GPU dispatch。
 - 修复安全配置问题,并同步 `package-lock.json` 与 `package.json`。
